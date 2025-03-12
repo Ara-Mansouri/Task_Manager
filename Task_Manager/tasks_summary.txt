@@ -1,0 +1,9 @@
+📌 Pending Tasks:
+- Task
+-  Task 2
+
+✅ Completed Tasks:
+- o tasks)
+
+❌ Removed Tasks:
+(No tasks)
