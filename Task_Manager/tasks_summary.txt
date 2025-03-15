@@ -6,4 +6,4 @@
 - o tasks)
 
 ❌ Removed Tasks:
-(No tasks)
+(No removed tasks)
