@@ -1,11 +1,31 @@
 {
-    "pending": [
-        "Testing Remove Feature",
-        "Do not Be Nervous",
-        "Learning How To Talk when You Are Exited"
+    "Pending": [
+        {
+            "name": "First Task",
+            "priority": "High",
+            "deadline": "No deadline"
+        },
+        {
+            "name": "Second Task",
+            "priority": "Medium",
+            "deadline": "2025-03-19"
+        },
+        {
+            "name": "So Happy",
+            "priority": "High",
+            "deadline": "No deadline"
+        },
+        {
+            "name": "TiTap",
+            "priority": "Low",
+            "deadline": "No deadline"
+        },
+        {
+            "name": "ffvv",
+            "priority": "Low",
+            "deadline": "No deadline"
+        }
     ],
     "Completed": [],
-    "Removed": [
-        "Learning Python Syntax"
-    ]
+    "Removed": []
 }
