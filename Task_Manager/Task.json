@@ -1,9 +1,11 @@
 {
     "pending": [
-        "Learning Python Syntax",
-        "Learning Python",
-        "Learning ML",
-        "Learning NLP"
+        "Testing Remove Feature",
+        "Do not Be Nervous",
+        "Learning How To Talk when You Are Exited"
     ],
-    "Completed": []
+    "Completed": [],
+    "Removed": [
+        "Learning Python Syntax"
+    ]
 }
