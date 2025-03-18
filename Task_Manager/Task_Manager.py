@@ -21,6 +21,7 @@ def Load_Tasks():
                 tasks = {"Pending": [], "Completed": [], "Removed": []}
                 Save_Tasks(tasks)  # Save the new empty structure
     return tasks
+
 def Save_Tasks(Tasks):
     """Save tasks to the JSON file."""
     with open(TaskFile_json, "w") as file:
@@ -68,22 +69,23 @@ def Show_All_Tasks(Tasks):
     if not Tasks["Pending"]:
         print("No Pending Tasks available!")
     else:
-        for t in Tasks["Pending"]:
-            print(f"- {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
-
+        # for t in Tasks["Pending"]:
+        #     print(f"- {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
+        for task,index in enumerate(Tasks["Pending"],start=1):
+            print(f"-{index} {task["name"]} (Priority: {task['priority']}, Deadline: {task['deadline']})")
     print("\n✔ Completed Tasks:")
     if not Tasks["Completed"]:
         print("No Completed Tasks available!")
     else:
-        for t in Tasks["Completed"]:
-            print(f"- {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
+        for index , t in enumerate(Tasks["Completed"],start=1):
+            print(f"- {index} {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
 
     print("\n❌ Removed Tasks:")
     if not Tasks["Removed"]:
         print("No Removed Tasks available!")
     else:
-        for t in Tasks["Removed"]:
-            print(f"- {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
+        for index,t in enumerate(Tasks["Removed"],start=1):
+            print(f"- {index} {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
 
 def Undo_RemovedTasks(Tasks):
     """Restore the last removed task."""
