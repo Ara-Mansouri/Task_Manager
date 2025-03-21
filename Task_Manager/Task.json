@@ -1,11 +1,27 @@
 {
     "Pending": [
         {
+            "name": "Thinking About My New Year Resolution",
+            "priority": "Low",
+            "deadline": "No deadline"
+        }
+    ],
+    "Completed": [
+        {
+            "name": "I dont know",
+            "priority": "High",
+            "deadline": "No deadline"
+        },
+        {
+            "name": "God What am i doing",
+            "priority": "Medum",
+            "deadline": "No deadline"
+        },
+        {
             "name": "Example I dont know what Number",
             "priority": "High",
             "deadline": "2025-04-13"
         }
     ],
-    "Completed": [],
     "Removed": []
 }

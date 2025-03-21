@@ -41,27 +41,28 @@ def Add_Task(Tasks, Task, deadline=None, priority="Medium"):
     else:
         print("⚠ Task is already in the Pending List.\nOperation Failed.")
 
-def Remove_Task(Tasks, Task):
+def Remove_Task(Tasks):
     """Remove a task and move it to Removed list."""
-    for t in Tasks["Pending"]:
-        if t["name"] == Task:
-            Tasks["Pending"].remove(t)
-            Tasks["Removed"].append(t)
-            Save_Tasks(Tasks)
-            print(f"❌ Task '{Task}' removed!")
-            return
-    print(f"⚠ Task '{Task}' not found.")
+    index=int(input("Enter The Number of the Task you wanna Remove:"))-1
+    if 0<=index<len(Tasks["Pending"]):
+        RTask=Tasks["Pending"].pop(index)
+        Tasks["Removed"].append(RTask)
+        Save_Tasks(Tasks)
+        print(f"❌ Task '{RTask['name']}' removed!")
+    else:
+        print(f"⚠ Task number '{index+1}' not found.")
 
-def MarkCompleted(Tasks, Task):
-    """Mark a task as completed and move it to Completed list."""
-    for t in Tasks["Pending"]:
-        if t["name"] == Task:
-            Tasks["Pending"].remove(t)
-            Tasks["Completed"].append(t)
-            Save_Tasks(Tasks)
-            print(f"✅ Task '{Task}' marked as Completed.")
-            return
-    print(f"⚠ Task '{Task}' not found.")
+def MarkCompleted(Tasks):
+   
+    index=int(input("Enter the number of the Task you want To Mark as Completed:"))-1
+    if 0<=index<len(Tasks["Pending"]):
+        CTask=Tasks["Pending"].pop(index)
+        Tasks["Completed"].append(CTask)
+        Save_Tasks(Tasks)
+        print(f"✅ Task number '{index+1}' marked as Completed.")
+    else:
+        print(print("⚠ Task number not found."))
+
 
 def Show_All_Tasks(Tasks):
     """Display tasks along with their priority and deadline."""
@@ -69,10 +70,8 @@ def Show_All_Tasks(Tasks):
     if not Tasks["Pending"]:
         print("No Pending Tasks available!")
     else:
-        # for t in Tasks["Pending"]:
-        #     print(f"- {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
-        for task,index in enumerate(Tasks["Pending"],start=1):
-            print(f"-{index} {task["name"]} (Priority: {task['priority']}, Deadline: {task['deadline']})")
+        for index,task in enumerate(Tasks["Pending"],start=1):
+            print(f"-{index} {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
     print("\n✔ Completed Tasks:")
     if not Tasks["Completed"]:
         print("No Completed Tasks available!")
@@ -135,14 +134,12 @@ def main():
             Add_Task(TaskManage, Task, deadline, priority)
             TaskManage = Load_Tasks()
         elif choice == "2":
-            Task = input("Enter the Task you want to Remove: ").strip()
-            Remove_Task(TaskManage, Task)
+            Remove_Task(TaskManage)
             TaskManage = Load_Tasks()
         elif choice == "3":
             Show_All_Tasks(TaskManage)
         elif choice == "4":
-            Task = input("Enter the Task you want to Mark As Completed: ").strip()
-            MarkCompleted(TaskManage, Task)
+            MarkCompleted(TaskManage)
             TaskManage = Load_Tasks()
         elif choice == "5":
             Undo_RemovedTasks(TaskManage)
