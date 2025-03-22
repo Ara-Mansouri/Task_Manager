@@ -1,6 +1,8 @@
 ﻿import json
 import os
 from datetime import datetime
+from datetime import date
+from pkgutil import get_data
 
 TaskFile_json = "Task.json"
 
@@ -27,13 +29,39 @@ def Save_Tasks(Tasks):
     with open(TaskFile_json, "w") as file:
         json.dump(Tasks, file, indent=4)
 
-def Add_Task(Tasks, Task, deadline=None, priority="Medium"):
+def Get_Valid_priority():
+    Valid_priorities=['High','Medium','Low']
+    while True:
+        priority = input("Enter Priority (High, Medium, Low): ").strip().capitalize()
+        if priority in Valid_priorities:
+            return priority
+        else:
+            print("⚠ Invalid priority. Please enter High, Medium, or Low.")
+
+def Get_Valid_deadline():
+     deadline = input("Enter deadline (YYYY-MM-DD) or leave blank: ").strip()
+     try:
+        if deadline:
+            datetime.strptime(deadline, "%Y-%m-%d")  # Validate date format
+        else:
+            deadline = "No deadline"
+     except ValueError:
+        print("⚠ Invalid date format! Setting deadline to 'No deadline'.")
+        deadline = "No deadline" 
+     return deadline   
+
+def Add_Task(Tasks):
+    Valid_priorities=['High','Medium','Low']
+    Task = input("Enter Your Task: ").strip()
+    priority = Get_Valid_priority()
+    deadline=Get_Valid_deadline()
+    
     """Add a task with priority and deadline."""
     if Task not in [t["name"] for t in Tasks["Pending"]]:  # Ensure no duplicate task names
         Task_entry = {
             "name": Task,
             "priority": priority.capitalize(),  # Ensure capitalization (High, Medium, Low)
-            "deadline": deadline if deadline else "No deadline"
+            "deadline": deadline 
         }
         Tasks["Pending"].append(Task_entry)
         Save_Tasks(Tasks)
@@ -63,6 +91,15 @@ def MarkCompleted(Tasks):
     else:
         print(print("⚠ Task number not found."))
 
+def PendingDeadlineHandler(index,task):
+    try:
+        task_deadline = datetime.strptime(task['deadline'], "%Y-%m-%d").date()
+        if task_deadline==date.today():
+            print(f"-{index} 🔔 {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
+        else:
+            print(f"-{index} {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
+    except ValueError:
+        print(f"-{index} {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
 
 def Show_All_Tasks(Tasks):
     """Display tasks along with their priority and deadline."""
@@ -71,7 +108,7 @@ def Show_All_Tasks(Tasks):
         print("No Pending Tasks available!")
     else:
         for index,task in enumerate(Tasks["Pending"],start=1):
-            print(f"-{index} {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
+            PendingDeadlineHandler(index,task)
     print("\n✔ Completed Tasks:")
     if not Tasks["Completed"]:
         print("No Completed Tasks available!")
@@ -120,18 +157,7 @@ def main():
         choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            Task = input("Enter Your Task: ").strip()
-            priority = input("Enter Priority (High, Medium, Low): ").strip().capitalize()
-            deadline = input("Enter deadline (YYYY-MM-DD) or leave blank: ").strip()
-            try:
-                if deadline:
-                    datetime.strptime(deadline, "%Y-%m-%d")  # Validate date format
-                else:
-                    deadline = None
-            except ValueError:
-                print("⚠ Invalid date format! Setting deadline to 'No deadline'.")
-                deadline = None  
-            Add_Task(TaskManage, Task, deadline, priority)
+            Add_Task(TaskManage)
             TaskManage = Load_Tasks()
         elif choice == "2":
             Remove_Task(TaskManage)
