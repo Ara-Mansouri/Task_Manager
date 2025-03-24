@@ -103,20 +103,20 @@ def PendingDeadlineHandler(index,task):
 
 def Show_All_Tasks(Tasks):
     """Display tasks along with their priority and deadline."""
-    print("\n📌 Pending Tasks:")
+    print(f"\n📌 Pending Tasks Count({len(Tasks['Pending'])}):")
     if not Tasks["Pending"]:
         print("No Pending Tasks available!")
     else:
         for index,task in enumerate(Tasks["Pending"],start=1):
             PendingDeadlineHandler(index,task)
-    print("\n✔ Completed Tasks:")
+    print(f"\n✔ Completed Tasks Count({len(Tasks['Completed'])}):")
     if not Tasks["Completed"]:
         print("No Completed Tasks available!")
     else:
         for index , t in enumerate(Tasks["Completed"],start=1):
             print(f"- {index} {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
 
-    print("\n❌ Removed Tasks:")
+    print(f"\n❌ Removed Tasks Count({len(Tasks['Removed'])}):")
     if not Tasks["Removed"]:
         print("No Removed Tasks available!")
     else:
@@ -142,6 +142,19 @@ def Empty_List(Tasks, group):
     else:
         print(f"⚠ Group '{group}' does not exist.")
 
+def Search_Tasks(Tasks):
+    keyword=input("Enter task name,deadline or priority:").strip().lower()
+    found=False
+    print("\nFounded Tasks:")
+    Groups=["Pending","Completed","Removed"]
+    for group in Groups:
+        for Task in Tasks[group]:
+            if keyword in Task["name"].lower() or keyword in Task["deadline"].lower() or keyword in Task["priority"].lower():
+                print(f"Task {Task['name']} found in the group {group} with deadline {Task['deadline']} and priority {Task['priority']} ")
+                found=True
+    if not found:
+        print("No Matching Tasks were Found")
+
 def main():
     TaskManage = Load_Tasks()
     while True:
@@ -152,7 +165,8 @@ def main():
         print("4. Mark Tasks As Completed")
         print("5. Undo Last Removed Task")
         print("6. Clear Group")
-        print("7. Exit")
+        print("7. Search Tasks")
+        print("8. Exit")
 
         choice = input("Enter your choice: ").strip()
 
@@ -175,6 +189,8 @@ def main():
             Empty_List(TaskManage, group)
             TaskManage = Load_Tasks()
         elif choice == "7":
+            Search_Tasks(TaskManage)
+        elif choice == "8":
             print("👋 Exiting the Program.")
             break
         else:
