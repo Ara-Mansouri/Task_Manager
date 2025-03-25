@@ -96,6 +96,8 @@ def PendingDeadlineHandler(index,task):
         task_deadline = datetime.strptime(task['deadline'], "%Y-%m-%d").date()
         if task_deadline==date.today():
             print(f"-{index} 🔔 {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
+        elif task_deadline<date.today():
+             print(f"-{index}  {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})---> DEADLINE HAS PASSED! ")
         else:
             print(f"-{index} {task['name']} (Priority: {task['priority']}, Deadline: {task['deadline']})")
     except ValueError:
