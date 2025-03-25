@@ -1,9 +1,9 @@
 {
     "Pending": [
         {
-            "name": "Thinking About My New Year Resolution",
-            "priority": "Low",
-            "deadline": "No deadline"
+            "name": "TestMAek",
+            "priority": "High",
+            "deadline": "2025-03-22"
         },
         {
             "name": "F",
@@ -14,13 +14,14 @@
             "name": "Testtt",
             "priority": "High",
             "deadline": "No deadline"
-        },
-        {
-            "name": "TestMAek",
-            "priority": "High",
-            "deadline": "2025-03-22"
         }
     ],
-    "Completed": [],
+    "Completed": [
+        {
+            "name": "Thinking About My New Year Resolution",
+            "priority": "Low",
+            "deadline": "No deadline"
+        }
+    ],
     "Removed": []
 }
