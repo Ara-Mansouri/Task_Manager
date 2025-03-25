@@ -79,7 +79,25 @@ def Remove_Task(Tasks):
         print(f"❌ Task '{RTask['name']}' removed!")
     else:
         print(f"⚠ Task number '{index+1}' not found.")
-
+def undo_CompletedTask(Tasks):
+    index=int(input("Enter the number of the Task you want To Undo From Completed List:"))-1
+    if 0<=index<len(Tasks["Pending"]):
+        CTask=Tasks["Completed"].pop(index)
+        Tasks["Pending"].append(CTask)
+        Save_Tasks(Tasks)
+        print(f"✅ Task number '{index+1}' Undo From Completed List.")
+    else:
+        print(print("⚠ Task number not found."))
+        
+def undo_RemovedTask(Tasks):
+    index=int(input("Enter the number of the Task you want To Undo From Removed List:"))-1
+    if 0<=index<len(Tasks["Removed"]):
+        CTask=Tasks["Removed"].pop(index)
+        Tasks["Completed"].append(CTask)
+        Save_Tasks(Tasks)
+        print(f"✅ Task number '{index+1}' Undo From Removed List.")
+    else:
+        print(print("⚠ Task number not found."))
 def MarkCompleted(Tasks):
    
     index=int(input("Enter the number of the Task you want To Mark as Completed:"))-1
@@ -162,13 +180,14 @@ def main():
     while True:
         print("\n📝 Daily Task Manager")
         print("1. Add Tasks")
-        print("2. Remove Tasks")
+        print("2. Undo Removed Tasks")
         print("3. View Tasks")
         print("4. Mark Tasks As Completed")
         print("5. Undo Last Removed Task")
         print("6. Clear Group")
         print("7. Search Tasks")
-        print("8. Exit")
+        print("8. Undo Completed Tasks")
+        print("9. Exit")
 
         choice = input("Enter your choice: ").strip()
 
@@ -176,7 +195,8 @@ def main():
             Add_Task(TaskManage)
             TaskManage = Load_Tasks()
         elif choice == "2":
-            Remove_Task(TaskManage)
+            # Remove_Task(TaskManage)
+            undo_RemovedTask(TaskManage)
             TaskManage = Load_Tasks()
         elif choice == "3":
             Show_All_Tasks(TaskManage)
@@ -193,6 +213,8 @@ def main():
         elif choice == "7":
             Search_Tasks(TaskManage)
         elif choice == "8":
+            undo_CompletedTask(TaskManage)    
+        elif choice == "9":
             print("👋 Exiting the Program.")
             break
         else:
