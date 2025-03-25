@@ -72,6 +72,7 @@ def Add_Task(Tasks):
 def Remove_Task(Tasks):
     """Remove a task and move it to Removed list."""
     index=int(input("Enter The Number of the Task you wanna Remove:"))-1
+    length=len(Tasks["Pending"])
     if 0<=index<len(Tasks["Pending"]):
         RTask=Tasks["Pending"].pop(index)
         Tasks["Removed"].append(RTask)
@@ -81,7 +82,7 @@ def Remove_Task(Tasks):
         print(f"⚠ Task number '{index+1}' not found.")
 def undo_CompletedTask(Tasks):
     index=int(input("Enter the number of the Task you want To Undo From Completed List:"))-1
-    if 0<=index<len(Tasks["Pending"]):
+    if 0<=index<len(Tasks["Completed"]):
         CTask=Tasks["Completed"].pop(index)
         Tasks["Pending"].append(CTask)
         Save_Tasks(Tasks)
