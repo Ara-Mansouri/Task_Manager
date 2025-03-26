@@ -80,6 +80,7 @@ def Remove_Task(Tasks):
         print(f"❌ Task '{RTask['name']}' removed!")
     else:
         print(f"⚠ Task number '{index+1}' not found.")
+        
 def undo_CompletedTask(Tasks):
     index=int(input("Enter the number of the Task you want To Undo From Completed List:"))-1
     if 0<=index<len(Tasks["Completed"]):
@@ -99,6 +100,7 @@ def undo_RemovedTask(Tasks):
         print(f"✅ Task number '{index+1}' Undo From Removed List.")
     else:
         print(print("⚠ Task number not found."))
+        
 def MarkCompleted(Tasks):
    
     index=int(input("Enter the number of the Task you want To Mark as Completed:"))-1
@@ -144,16 +146,6 @@ def Show_All_Tasks(Tasks):
         for index,t in enumerate(Tasks["Removed"],start=1):
             print(f"- {index} {t['name']} (Priority: {t['priority']}, Deadline: {t['deadline']})")
 
-def Undo_RemovedTasks(Tasks):
-    """Restore the last removed task."""
-    if not Tasks["Removed"]:
-        print("⚠ There are no removed tasks to undo.")
-    else:
-        Task = Tasks["Removed"].pop()
-        Tasks["Pending"].append(Task)
-        print(f"✅ Removed Task '{Task['name']}' restored successfully.")
-        Save_Tasks(Tasks)
-
 def Empty_List(Tasks, group):
     """Clear all tasks from a specific group."""
     if group in Tasks:
@@ -185,9 +177,9 @@ def main():
         print("3. View Tasks")
         print("4. Mark Tasks As Completed")
         print("5. Undo Removed Tasks")
-        print("6. Clear Group")
+        print("6. Undo Completed Tasks")
         print("7. Search Tasks")
-        print("8. Undo Completed Tasks")
+        print("8. Clear Group")
         print("9. Exit")
 
         choice = input("Enter your choice: ").strip()
@@ -207,13 +199,13 @@ def main():
             undo_RemovedTask(TaskManage)
             TaskManage = Load_Tasks()
         elif choice == "6":
-            group = input("Enter the Group to Clear (Pending, Completed, Removed): ").strip()
-            Empty_List(TaskManage, group)
-            TaskManage = Load_Tasks()
+            undo_CompletedTask(TaskManage)
+            TaskManage = Load_Tasks() 
         elif choice == "7":
             Search_Tasks(TaskManage)
         elif choice == "8":
-            undo_CompletedTask(TaskManage)
+            group = input("Enter the Group to Clear (Pending, Completed, Removed): ").strip()
+            Empty_List(TaskManage, group)
             TaskManage = Load_Tasks()
         elif choice == "9":
             print("👋 Exiting the Program.")
